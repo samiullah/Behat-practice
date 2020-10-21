@@ -40,4 +40,35 @@ class FeatureContext extends MinkContext implements Context
     {
         $this->getSession()->wait('5000');
     }
+
+
+
+    /**
+     * @Then I search :arg1
+     */
+    public function iSearch2($arg1)
+    {   
+        $this->getSession()->getPage()->find('xpath','(//*[@id="edit-filter"])[2]')->setValue($arg1);
+        $element=$this->getSession()->getPage()->find('xpath','(//input[@class="button js-form-submit form-submit btn btn-primary"])[2]');
+        $element->click();
+        $this->iWaitForThePageToLoad();
+
+    }
+
+    /**
+     * @Then I check search results contains result with string :arg1
+     */
+    public function iCheckSearchResultsContainsResultWithString($arg1)
+    {    
+        $i=$this->getSession()->getPage();
+        $tes=$i->find('xpath','//div[contains(text(),$arg1)]');
+        
+        // print($tes);
+        // if($tes!=null){
+        //     print_r("testpass");
+        // }
+        // else{
+        //     print_r("test fail");
+        // }
+    }
 }
